@@ -1,18 +1,29 @@
 # O11y practice
 
-I wanted to learn more about DevOps and specifically the concepts and tools of observability. In this repository I have documented my process, as well as [provided VM instances](TODO once uploaded to GitHub) for others to explore and learn.
-
+I wanted to learn more about DevOps and specifically the concepts and tools of observability. In this repository I have documented my process, as well as [provided VM instances](https://github.com/mcsken/o11y-practice/tree/main?tab=readme-ov-file#vm-instances) for others to explore and learn.
 
 For the observability tools, I chose some of the most popular, newest and open-source: [Icinga](https://icinga.com/), [Prometheus](https://prometheus.io/) and [Grafana](https://grafana.com/).
 
-I started by learning a few core concepts and how these tools worked by [reading their respective documentation, watching the official video introductions, blogs etc](TODO once uploaded to GitHub). I then configured a VM where I installed, set up, configured, [fixed bugs](https://github.com/Icinga/icingaweb2-module-director/pull/2946) and played around with some of the features and functionality of this stack.
+I started by learning a few core concepts and how these tools worked by [reading their respective documentation, watching the official video introductions, blogs etc](https://github.com/mcsken/o11y-practice/tree/main?tab=readme-ov-file#links-to-learning-resources). I then configured a VM where I installed, set up, configured, [fixed bugs](https://github.com/Icinga/icingaweb2-module-director/pull/2946) and played around with some of the features and functionality of this stack.
 
 Below I document my process starting from the VM configuration. For the VM OS I chose [Debian 12 Bookworm stable](https://www.debian.org/releases/bookworm/) due to having the best balance of popularity, support for this specific tech stack, and because all the tools were license-free in this version.
 
 Given the option I also installed some of these tools through docker images using [Docker Engine](https://docs.docker.com/engine/).
 
 ## Table of contents
-TODO once uploaded to GitHub
+
+1. [Installations & Configurations](https://github.com/mcsken/o11y-practice/tree/main?tab=readme-ov-file#installations--configurations)
+   1. [Debian VM Setup (VirtualBox)](https://github.com/mcsken/o11y-practice/tree/main?tab=readme-ov-file#debian-vm-setup-virtualbox)
+   2. [Icinga2 Install and set up](https://github.com/mcsken/o11y-practice/tree/main?tab=readme-ov-file#icinga2-install-and-set-up)
+   3. [Icinga Web 2 Install and set up](https://github.com/mcsken/o11y-practice/tree/main?tab=readme-ov-file#icinga-web-2-install-and-set-up)
+   4. [Director module setup and configuration](https://github.com/mcsken/o11y-practice/tree/main?tab=readme-ov-file#director-module-setup-and-configuration)
+   5. [Docker Engine (Debian)](https://github.com/mcsken/o11y-practice/tree/main?tab=readme-ov-file#docker-engine-debian)
+   6. [Prometheus with Node Exporter](https://github.com/mcsken/o11y-practice/tree/main?tab=readme-ov-file#prometheus-with-node-exporter)
+   7. [Grafana](https://github.com/mcsken/o11y-practice/tree/main?tab=readme-ov-file#grafana)
+   8. [check_prometheus icinga plugin](https://github.com/mcsken/o11y-practice/tree/main?tab=readme-ov-file#check_prometheus-icinga-plugin)
+2. [Resources](https://github.com/mcsken/o11y-practice/tree/main?tab=readme-ov-file#resources)
+   1. [Links to learning resources](https://github.com/mcsken/o11y-practice/tree/main?tab=readme-ov-file#links-to-learning-resources)
+   2. [VM instances](https://github.com/mcsken/o11y-practice/tree/main?tab=readme-ov-file#vm-instances)
 
 ## Installations & Configurations
 
@@ -46,7 +57,6 @@ I also configured VirtualBox’s guest additions, but there are plenty of articl
 ### Icinga2 Install and set up
 To get a base/demo project setup quickly you can follow the [get started with Icinga documentation]( https://icinga.com/docs/get-started/latest/).
 
-
 To complete the prerequisites of the quick start section I installed the latest MySQL, following:
 https://docs.vultr.com/how-to-install-mysql-on-debian-12
 and 
@@ -62,12 +72,7 @@ For `icingadb`: `7wv0kfW9ZqCU0OF34KiC`.\
 As well as set the passwords for MySQL root to: `jkTeIthU9paVtO949VEs`.
 
 ### Icinga Web 2 Install and set up
-
 After entering the token generated from the previous steps in the documentation, the setup process begins.
-
-
-
-
 
 First you get to pick which module to enable and configure, I picked Director, Doc and IcingaDB (on by default).
 ![Icinga web modules](assets/1-icingaweb-modules.png)
@@ -98,11 +103,8 @@ Overview of Icinga Web configuration:
 
 ![Icinga web first setup overview](assets/8-icingaweb-first-setup-overview.png)
 
-
-
 Following now is the Icinga DB Web configuration.
 ![Icinga DB web icinga database resource](assets/9-icingadbweb-icinga-db-resource.png)
-
  
 For a baseline/demo project all you need to configure for Redis is the `Redis Host` field as local host. Just make sure the service is running correctly and validate it. 
 ![Icinga DB web redis localhost](assets/10-icingadbweb-redis-localhost.png)
@@ -145,8 +147,6 @@ Now you can go to the Icinga Director, select the DB resource the director resou
 
 ![Director create schema](assets/18-director-create-schema.png)
 
- 
-
 > [!IMPORTANT]  
 > At this point I encountered a serious issue that halted my progress. The director DB was error-ing out during the schema creation and failing. [I tried everything within the recommended approaches to fix the issue](https://icinga.com/docs/icinga-director/latest/doc/05-Upgrading/#manual-schema-migrations), but it persisted. So, I manually edited the MySQL schema and got it to work. I then headed to the GitHub repository for the director module to report it as an issue since I couldn't find info for it anywhere else. Before making an issue I made sure I wasn't creating a duplicate, so I searched the open issues and found that [someone had already reported it as a MySQL 8.4+ deprecation issue back in July 6th 2024](https://github.com/Icinga/icingaweb2-module-director/issues/2885). I then made a [pull request for the project](https://github.com/Icinga/icingaweb2-module-director/pull/2946) so that the issue could hopefully be resolved soon and others in the future won’t waste time debugging and manually editing queries like I did.
 
@@ -178,7 +178,6 @@ But first I needed to install docker engine for debian through [the official doc
 ### Prometheus with Node Exporter
 I installed node exporter through [the provided docker installation instructions](https://github.com/prometheus/node_exporter?tab=readme-ov-file#docker).\
 I also installed Prometheus through the docker image following [the official documentation](https://prometheus.io/docs/prometheus/latest/installation/#using-docker).
-
 
 I then bind-mounted [the `prometheus.yml` config given for the node exporter](https://prometheus.io/docs/guides/node-exporter/#configuring-your-prometheus-instances) to the prometheus container config file.
 
@@ -212,7 +211,6 @@ Now the prometheus web interface can be opened at `http://localhost:9090` and yo
 I then installed [Grafana's open-source edition through docker](https://grafana.com/grafana/download?edition=oss&platform=docker) as well.
 
 Once the container is running you can access the web interface through the default address `http://localhost:3000/`. Initially you will be presented with a login page where you can use `admin` for the username and password, once that is done you will be immediately prompted to choose a new password. For details, you can follow the [Grafana set up docs](https://grafana.com/docs/grafana/latest/setup-grafana/).
-
 
 Grafana username: `admin`\
 Grafana password: `6qyHEiX6AMhYd53URKQI`
@@ -253,7 +251,6 @@ For `prometheus-commands.conf` I based it on [the contributing example from the 
 For `prometheus-service.conf` I based it on [the example from the repo again](https://github.com/NETWAYS/check_prometheus/blob/main/contrib/icinga2-service-example.conf), and defined the hostname variable to the Docker Engine address `172.17.0.1` since by default it goes to `localhost`. And added `assign where host.name == NodeName` based on the other plugin `.conf` files in the directory.
 
 [prometheus-commands.conf](assets/prometheus-commands.conf)
-
 
 [prometheus-service.conf](assets/prometheus-service.conf)
 
