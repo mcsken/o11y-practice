@@ -1,14 +1,34 @@
-# O11y practice
+# O11y Practice: Exploring Observability Tools
 
-I wanted to learn more about DevOps and specifically the concepts and tools of observability. In this repository I have documented my process, as well as [provided VM instances](https://github.com/mcsken/o11y-practice/tree/main?tab=readme-ov-file#vm-instances) for others to explore and learn.
+A hands-on repository focused on learning and experimenting with observability concepts and tools in the context of DevOps.
 
-For the observability tools, I chose some of the most popular, newest and open-source: [Icinga](https://icinga.com/), [Prometheus](https://prometheus.io/) and [Grafana](https://grafana.com/).
+This repository documents my learning process into observability, providing step-by-step instructions, configurations, and even [VM instances](https://github.com/mcsken/o11y-practice/tree/main?tab=readme-ov-file#vm-instances) for others to explore and play with, out of the box.
 
-I started by learning a few core concepts and how these tools worked by [reading their respective documentation, watching the official video introductions, blogs etc](https://github.com/mcsken/o11y-practice/tree/main?tab=readme-ov-file#links-to-learning-resources). I then configured a VM where I installed, set up, configured, [fixed bugs](https://github.com/Icinga/icingaweb2-module-director/pull/2946) and played around with some of the features and functionality of this stack.
+## Why Observability?
 
-Below I document my process starting from the VM configuration. For the VM OS I chose [Debian 12 Bookworm stable](https://www.debian.org/releases/bookworm/) due to having the best balance of popularity, support for this specific tech stack, and because all the tools were license-free in this version.
+Observability is a critical aspect of modern DevOps, enabling teams to monitor, debug, and optimize systems effectively. It is often considered the final step in the continuous delivery part of the CI/CD loop as "monitoring", ensuring that deployments are not only successful but also performant, reliable, and scalable in production environments.
 
-Given the option I also installed some of these tools through docker images using [Docker Engine](https://docs.docker.com/engine/).
+![CI/CD loop](assets/ci-cd-loop.png)
+
+To dive into this topic, I selected a set of popular, open-source tools:
+ - [Icinga](https://icinga.com/): Monitoring and alerting system.
+ - [Prometheus](https://prometheus.io/): Metrics collection and querying tool.
+ - [Grafana](https://grafana.com/): Visualization and analytics platform.
+
+## What’s in this Repository?
+
+I started by studying core observability concepts, learning how these tools function by consulting [official documentation, video tutorials, and blogs](https://github.com/mcsken/o11y-practice/tree/main?tab=readme-ov-file#links-to-learning-resources). Then, I set up a VM as the foundation for hands-on experimentation, documenting each step along the way.
+
+Icinga was installed natively on the VM, while the rest of the software was installed via Docker images through [Docker Engine](https://docs.docker.com/engine/).
+
+Additionally, I fixed some bugs (e.g., [Icinga Web 2 Director module deprication](https://github.com/Icinga/icingaweb2-module-director/pull/2946)) and explored the core features of each tool to get a good feel for their use cases.
+
+### Who Is This For?
+
+This repository is ideal for:
+ - Beginners looking to understand observability basics and its common tech stack.
+ - Engineers unfamiliar with o11y looking for a from-scratch walkthrough.
+ - Engineers who want ready-to-use VM instances to skip setup overhead and get to explore and play with the stack themselves.
 
 ## Table of contents
 
